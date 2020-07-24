@@ -1,11 +1,11 @@
 import React from "react";
 import ".././App.css";
 import Header from "./Header";
-import { fetchArticle } from "../action/index";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./Signup";
+import { fetchArticle } from "../action/index";
 
 class App extends React.Component {
   constructor(props) {
@@ -14,8 +14,8 @@ class App extends React.Component {
   componentDidMount() {
     var articlesUrl =
       "https://conduit.productionready.io/api/articles?limit=10&offset=0";
-    // console.log(articlesUrl, "hlo");
-    this.props.dispatch(fetchArticle(articlesUrl));
+    console.log(this.props, "hlo");
+    this.props.fetchArticle(articlesUrl);
   }
   render() {
     return (
@@ -30,4 +30,9 @@ class App extends React.Component {
   }
 }
 
-export default connect()(App);
+const mapStateToProps = (state) => {
+  return {
+    state,
+  };
+};
+export default connect(mapStateToProps, { fetchArticle })(App);
