@@ -1,11 +1,14 @@
+import { ADD_ARTICLES } from "../action/Type";
 const initialState = {
-  article: [],
+  articles: [],
 };
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case "addEventListener": {
-      return state;
-    }
+    case ADD_ARTICLES:
+      return {
+        ...state,
+        articles: action.payload,
+      };
     default:
       return state;
   }
