@@ -3,7 +3,7 @@ import React from "react";
 export default function Signup() {
   return (
     <>
-      <div className="container">
+      <div className="container padding">
         <div className="field">
           <p className="control has-icons-left has-icons-right">
             <input className="input" type="email" placeholder="Email" />

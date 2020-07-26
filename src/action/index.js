@@ -1,4 +1,4 @@
-import { ADD_ARTICLES } from "./Type";
+import { ADD_ARTICLES, ADD_TAGS } from "./Type";
 export function fetchArticle(articlesUrl) {
   return function (dispatch) {
     fetch(articlesUrl, {
@@ -15,24 +15,20 @@ export function fetchArticle(articlesUrl) {
   };
 }
 
-// export const fetchArticle = (url) => {
-//   try {
-//     return async function (url) {
-//       return fetch(url, {
-//         method: "GET",
-//       })
-//         .then((res) => res.json())
-//         .then((articles) => {
-//           console.log(articles, "getting the all articles");
-//           return {
-//             type: ADD_ARTICLES,
-//             payload: articles,
-//           };
-//         });
-//     };
-//   } catch (err) {
-//     return console.log(err.message);
-//   }
-// };
+export function fetchTags(tagsUrl) {
+  return function (dispatch) {
+    fetch(tagsUrl, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then(({ tags }) =>
+        dispatch({
+          type: ADD_TAGS,
+          payload: tags,
+        })
+      )
+      .catch((error) => console.log(error));
+  };
+}
 
 export default fetchArticle;

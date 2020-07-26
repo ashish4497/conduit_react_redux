@@ -5,7 +5,10 @@ import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./Signup";
-import { fetchArticle } from "../action/index";
+import { fetchArticle, fetchTags } from "../action/index";
+import Hero from "./Hero";
+import Footer from "./Footer";
+import MainHero from "./Mainhero";
 
 class App extends React.Component {
   constructor(props) {
@@ -14,17 +17,22 @@ class App extends React.Component {
   componentDidMount() {
     var articlesUrl =
       "https://conduit.productionready.io/api/articles?limit=10&offset=0";
-    console.log(this.props, "hlo");
+    // console.log(this.props, "hlo");
     this.props.fetchArticle(articlesUrl);
+    var tagUrl = "https://conduit.productionready.io/api/tags";
+    this.props.fetchTags(tagUrl);
   }
   render() {
     return (
       <div className="App">
         <Header />
+        {/* <Hero /> */}
         <Switch>
           <Route path="/Signup" component={Signup} />
           <Route path="/Login" component={Login} />
         </Switch>
+        <MainHero />
+        {/* <Footer /> */}
       </div>
     );
   }
@@ -35,4 +43,4 @@ const mapStateToProps = (state) => {
     state,
   };
 };
-export default connect(mapStateToProps, { fetchArticle })(App);
+export default connect(mapStateToProps, { fetchArticle, fetchTags })(App);
