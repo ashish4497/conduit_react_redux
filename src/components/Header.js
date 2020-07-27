@@ -11,6 +11,12 @@ function Header(props) {
           </Link>
         </div>
         <div className="flex-2">
+          <Link className="logo" to="/main">
+            <p className="logo_name">Home</p>
+          </Link>
+          <Link className="logo" to="/post">
+            <p className="logo_name">New Post</p>
+          </Link>
           <Link className="logo" to="/Login">
             <p className="logo_name">login</p>
           </Link>

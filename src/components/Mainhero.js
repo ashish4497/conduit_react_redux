@@ -9,7 +9,7 @@ function mainHero(props) {
   return (
     <div>
       {/* <Header /> */}
-      <Hero />
+      {/* <Hero /> */}
       <div className="container padding grid">
         <div className="left_sec">
           <Article />
@@ -18,7 +18,7 @@ function mainHero(props) {
           <Tag />
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

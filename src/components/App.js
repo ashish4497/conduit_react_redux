@@ -9,6 +9,7 @@ import { fetchArticle, fetchTags } from "../action/index";
 import Hero from "./Hero";
 import Footer from "./Footer";
 import MainHero from "./Mainhero";
+import Post from "./NewPost";
 
 class App extends React.Component {
   constructor(props) {
@@ -30,9 +31,11 @@ class App extends React.Component {
         <Switch>
           <Route path="/Signup" component={Signup} />
           <Route path="/Login" component={Login} />
+          <Route path="/post" component={Post} />
+          <Route path="/" component={Hero} />
         </Switch>
-        <MainHero />
-        {/* <Footer /> */}
+        {/* <MainHero /> */}
+        <Footer />
       </div>
     );
   }

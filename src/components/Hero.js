@@ -1,14 +1,18 @@
 import React from "react";
+import MainHero from "./Mainhero";
 
 export default function Hero(props) {
   return (
-    <section class="hero is-medium is-primary is-bold">
-      <div class="hero-body center">
-        <div class="container">
-          <h1 class="title">conduit </h1>
-          <h2 class="subtitle">A place to share a knowledge</h2>
+    <>
+      <section class="hero is-medium is-primary is-bold">
+        <div class="hero-body center">
+          <div class="container">
+            <h1 class="title">conduit </h1>
+            <h2 class="subtitle">A place to share a knowledge</h2>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <MainHero />
+    </>
   );
 }

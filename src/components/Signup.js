@@ -1,43 +1,78 @@
 import React from "react";
 
-export default function Signup() {
-  return (
-    <>
-      <div className="container padding">
-        <div className="field">
-          <p className="control has-icons-left has-icons-right">
-            <input className="input" type="email" placeholder="Email" />
-            <span className="icon is-small is-left">
-              <i className="fas fa-envelope"></i>
-            </span>
-            <span className="icon is-small is-right">
-              <i className="fas fa-check"></i>
-            </span>
-          </p>
-        </div>
-        <div className="field">
-          <p className="control has-icons-left">
-            <input className="input" type="password" placeholder="Password" />
-            <span className="icon is-small is-left">
-              <i className="fas fa-lock"></i>
-            </span>
-          </p>
-        </div>
-        <div className="field">
-          <div className="control">
-            <input
-              className="input"
-              type="email"
-              placeholder="e.g. alexsmith@gmail.com"
-            />
+class Signup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userName: "",
+      email: "",
+      password: "",
+    };
+  }
+
+  handleChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
+  };
+
+  handleSubmit = () => {
+    // alert("called");
+    fetch("https://conduit.productionready.io/api/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user: this.state }),
+    }).then((res) => {
+      if (res.status === 200) {
+        this.props.history.push("/Login");
+      }
+    });
+    // .then((user) => console.log(user, "chek"));
+  };
+  render() {
+    let { userName, email, password } = this.state;
+    console.log(this.state);
+    return (
+      <>
+        <div className="container padding">
+          <div className="field">
+            <p className="control has-icons-left">
+              <input
+                className="input"
+                type="text"
+                placeholder="userName"
+                value={userName}
+                name="userName"
+                onChange={this.handleChange}
+              />
+              <input
+                className="input"
+                type="email"
+                placeholder="Email"
+                name="email"
+                value={email}
+                onChange={this.handleChange}
+              />
+              <input
+                className="input"
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={this.handleChange}
+              />
+            </p>
+          </div>
+
+          <div className="field">
+            <p className="control">
+              <button className="button is-success" onClick={this.handleSubmit}>
+                Signup
+              </button>
+            </p>
           </div>
         </div>
-        <div className="field">
-          <p className="control">
-            <button className="button is-success">Signup</button>
-          </p>
-        </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
+
+export default Signup;

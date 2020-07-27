@@ -30,6 +30,9 @@
   margin: 6px 4px;
 }
 
+.margin {
+  margin: 16px 0;
+}
 .favorite-count span {
   margin-left: 4px;
 }
