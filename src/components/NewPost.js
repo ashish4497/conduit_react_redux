@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { postArticle } from "../action";
 class Post extends React.Component {
   constructor(props) {
     super(props);
@@ -12,8 +13,12 @@ class Post extends React.Component {
   }
 
   handleChange = ({ target: { value, name } }) => {
-    // console.dir(target, "fghjkl");
     this.setState({ [name]: value });
+  };
+
+  handleSubmit = () => {
+    var postUrl = "https://conduit.productionready.io/api/articles";
+    this.props.dispatch(postArticle(postUrl, this.state, this.props.history));
   };
 
   render() {

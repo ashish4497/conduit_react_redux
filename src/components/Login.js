@@ -1,5 +1,6 @@
 import React from "react";
-
+import { USER_INFO } from "../action/Type";
+import { connect } from "react-redux";
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -25,10 +26,16 @@ class Login extends React.Component {
         }
         return res.json();
       })
-      .then(({ user }) => localStorage.setItem("authToken", user.token))
+      .then(({ user }) => {
+        console.log(user, "check the user");
+
+        localStorage.setItem("authToken", user.token);
+        return this.props.dispatch({ type: USER_INFO, payload: user });
+      })
       .catch((err) => console.log(err));
     // .this(({ user }) => console.log(user));
   };
+
   render() {
     let { email, password } = this.state;
     return (
@@ -83,4 +90,4 @@ class Login extends React.Component {
     );
   }
 }
-export default Login;
+export default connect()(Login);
