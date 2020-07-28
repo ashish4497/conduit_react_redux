@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import postArticle from "../action/index";
 class Post extends React.Component {
   constructor(props) {
     super(props);

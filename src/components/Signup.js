@@ -1,10 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 
 class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: "",
+      username: "",
       email: "",
       password: "",
     };
@@ -14,9 +15,9 @@ class Signup extends React.Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = () => {
-    // alert("called");
-    fetch("https://conduit.productionready.io/api/users", {
+  handleSubmit = (e) => {
+    var url = "https://conduit.productionready.io/api/users";
+    fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user: this.state }),
@@ -25,10 +26,10 @@ class Signup extends React.Component {
         this.props.history.push("/Login");
       }
     });
-    // .then((user) => console.log(user, "chek"));
   };
+
   render() {
-    let { userName, email, password } = this.state;
+    let { username, email, password } = this.state;
     console.log(this.state);
     return (
       <>
@@ -39,8 +40,8 @@ class Signup extends React.Component {
                 className="input"
                 type="text"
                 placeholder="userName"
-                value={userName}
-                name="userName"
+                value={username}
+                name="username"
                 onChange={this.handleChange}
               />
               <input
@@ -61,7 +62,6 @@ class Signup extends React.Component {
               />
             </p>
           </div>
-
           <div className="field">
             <p className="control">
               <button className="button is-success" onClick={this.handleSubmit}>
@@ -75,4 +75,4 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+export default connect()(Signup);

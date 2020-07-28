@@ -1,4 +1,4 @@
-import { ADD_ARTICLES, ADD_TAGS, POST_ARTICLE } from "./Type";
+import { ADD_ARTICLES, ADD_TAGS } from "./Type";
 export function fetchArticle(articlesUrl) {
   return function (dispatch) {
     fetch(articlesUrl, {
@@ -47,5 +47,3 @@ export function fetchTags(tagsUrl) {
 //       .catch((error) => console.log(error));
 //   };
 // }
-
-export default fetchArticle;

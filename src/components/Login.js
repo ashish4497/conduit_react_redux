@@ -12,14 +12,23 @@ class Login extends React.Component {
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
-
-  // handleSubmit = () => {
-  //   fetch("https://conduit.productionready.io/api/users/login").then(res => {
-  //     res.json().then({ user })=> {
-
-  //     }
-  //   })
-  // };
+  handleSubmit = (event) => {
+    var url = "https://conduit.productionready.io/api/users/login";
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user: this.state }),
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          this.props.history.push("/");
+        }
+        return res.json();
+      })
+      .then(({ user }) => localStorage.setItem("authToken", user.token))
+      .catch((err) => console.log(err));
+    // .this(({ user }) => console.log(user));
+  };
   render() {
     let { email, password } = this.state;
     return (
