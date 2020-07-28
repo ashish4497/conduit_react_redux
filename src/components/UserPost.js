@@ -6,7 +6,7 @@ class userPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comment: "",
+      body: "",
     };
   }
 
@@ -23,9 +23,8 @@ class userPost extends React.Component {
   render() {
     const postArticle = this.props.postArticle;
     console.log(postArticle, "check the lg f article");
-    console.log(postArticle.author, "check the lg f article");
-    console.log(postArticle.author, "check the lg f article");
-    const { comment } = this.state;
+
+    const { body } = this.state;
     return (
       <>
         <article>
@@ -52,8 +51,8 @@ class userPost extends React.Component {
                   <textarea
                     class="textarea"
                     placeholder="Add a comment..."
-                    value={comment}
-                    name="comment"
+                    value={body}
+                    name="body"
                     onChange={this.handleChange}
                   ></textarea>
                 </p>

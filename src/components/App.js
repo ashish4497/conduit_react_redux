@@ -47,11 +47,11 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <Switch>
+          <Route path="/Signup" component={Signup} />
+          <Route path="/Login" component={Login} />
           <Route path="/post" component={Post} />
           <Route path="/userpost" component={UserPost} />
           <Route path="/" component={Hero} />
-          <Route path="/Signup" component={Signup} />
-          <Route path="/Login" component={Login} />
         </Switch>
         <Footer />
       </div>
