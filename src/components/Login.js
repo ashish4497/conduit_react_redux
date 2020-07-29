@@ -13,6 +13,7 @@ class Login extends React.Component {
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
+
   handleSubmit = (event) => {
     var url = "https://conduit.productionready.io/api/users/login";
     fetch(url, {
@@ -28,7 +29,6 @@ class Login extends React.Component {
       })
       .then(({ user }) => {
         console.log(user, "check the user");
-
         localStorage.setItem("authToken", user.token);
         return this.props.dispatch({ type: USER_INFO, payload: user });
       })

@@ -4,6 +4,7 @@ import {
   USER_INFO,
   POST_ARTICLE,
   POST_COMMENT,
+  FETCH_COMMENT,
 } from "../action/Type";
 const initialState = {
   articles: [],
@@ -11,9 +12,12 @@ const initialState = {
   user: {},
   postArticle: {},
   comment: {},
+  getComment: [],
 };
 
 export default function reducer(state = initialState, action) {
+  // console.log(state.postArticle, "check the state");
+
   switch (action.type) {
     case ADD_ARTICLES:
       return {
@@ -39,6 +43,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         comment: action.payload,
+      };
+    case FETCH_COMMENT:
+      return {
+        ...state,
+        getComment: action.payload,
       };
     default:
       return state;

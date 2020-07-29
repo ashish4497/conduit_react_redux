@@ -4,7 +4,9 @@ import {
   USER_INFO,
   POST_ARTICLE,
   POST_COMMENT,
+  FETCH_COMMENT,
 } from "./Type";
+
 export function fetchArticle(articlesUrl) {
   return function (dispatch) {
     fetch(articlesUrl, {
@@ -37,8 +39,8 @@ export function fetchTags(tagsUrl) {
   };
 }
 
-export function isLogin(url, token) {
-  // console.log(url, "log the action");
+export function getUserInfo(url, token) {
+  console.log(url, "log the action");
   return function (dispatch) {
     fetch(url, {
       method: "GET",
@@ -71,19 +73,19 @@ export function postArticle(postUrl, state, history) {
       body: JSON.stringify({ article: state }),
     })
       .then((res) => res.json())
-      .then(({ article }) =>
+      .then(({ article }) => {
         dispatch({
           type: POST_ARTICLE,
           payload: article,
-        })
-      )
+        });
+        return history.push(`/userpost/${article.slug}`);
+      })
       .catch((error) => console.log(error));
-    history.push("/userpost");
   };
 }
 
 export function postComment(commentUrl, state) {
-  console.log(commentUrl, state, "ehsnlfn");
+  // console.log(commentUrl, state, "ehsnlfn");
   return function (dispatch) {
     fetch(commentUrl, {
       method: "POST",
@@ -98,6 +100,24 @@ export function postComment(commentUrl, state) {
         dispatch({
           type: POST_COMMENT,
           payload: comment,
+        });
+      });
+  };
+}
+
+export function fetchComment(url) {
+  return function (dispatch) {
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(({ comments }) => {
+        dispatch({
+          type: FETCH_COMMENT,
+          payload: comments,
         });
       });
   };

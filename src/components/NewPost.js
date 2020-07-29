@@ -18,7 +18,9 @@ class Post extends React.Component {
 
   handleSubmit = () => {
     var postUrl = "https://conduit.productionready.io/api/articles";
-    this.props.dispatch(postArticle(postUrl, this.state, this.props.history));
+    this.props.dispatch(
+      postArticle(postUrl, { ...this.state }, this.props.history)
+    );
   };
 
   render() {

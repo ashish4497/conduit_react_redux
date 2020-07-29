@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { postComment } from "../action";
+import Comment from "./Comment";
+
+import { POST_ARTICLE } from "../action/Type";
 
 class userPost extends React.Component {
   constructor(props) {
@@ -10,40 +13,49 @@ class userPost extends React.Component {
     };
   }
 
+  componentDidMount() {
+    let { slug } = this.props.postArticle;
+    console.log(slug);
+    let url = `https://conduit.productionready.io/api/articles/${slug}`;
+    fetch(url, { method: "GET", headers: "application/json" })
+      .then((res) => res.json())
+      .then(({ article }) => {
+        this.props.dispatch({ type: POST_ARTICLE, payload: article });
+      });
+  }
+
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = (e) => {
-    const commentUrl =
-      "https://conduit.productionready.io/api/articles/aa-8c9ph6/comments";
-    this.props.dispatch(postComment(commentUrl, this.state));
-  };
-
   render() {
-    const postArticle = this.props.postArticle;
-    console.log(postArticle, "check the lg f article");
-
-    const { body } = this.state;
     return (
       <>
-        <article>
+        {/* <div className="container">
+          <div className="flex-2 margin">
+            <Link className="logo" to="/userpost">
+              <p className="feed">Your Feed</p>
+            </Link>
+            <Link className="logo" to="#">
+              <p className="logo_name">{title}</p>
+            </Link>
+          </div>
+        </div> */}
+        {/* <article>
           <div className="container">
             <figure class="media-left">
               <p class="image is-64x64">
-                <img src="https://bulma.io/images/placeholders/128x128.png" />
+                <img src={`${image}`} alt="user_image" />
               </p>
             </figure>
             <div class="media-content">
               <div class="content">
                 <p>
-                  <strong>John Smith</strong> <small>@johnsmith</small>{" "}
-                  <small>31m</small>
+                  <strong>{title}</strong>
+                  <small>{(bio && bio) || "no bio"}</small>
+                  <small>{username || "no username"}</small>
                   <br />
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                  ornare magna eros, eu pellentesque tortor vestibulum ut.
-                  Maecenas non massa sem. Etiam finibus odio quis feugiat
-                  facilisis.
+                  <p>{description}</p>
                 </p>
               </div>
               <div class="field">
@@ -66,9 +78,10 @@ class userPost extends React.Component {
                   </div>
                 </div>
               </nav>
+              <Comment />
             </div>
           </div>
-        </article>
+        </article> */}
       </>
     );
   }
@@ -77,6 +90,7 @@ class userPost extends React.Component {
 const MapStateToProps = (state) => {
   return {
     postArticle: state.postArticle,
+    comment: state.comment,
   };
 };
 export default connect(MapStateToProps)(userPost);
