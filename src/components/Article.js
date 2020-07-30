@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Article(props) {
   const articles = props.articles;
-  console.log(articles);
-
   return (
     <div className="feed">
       {articles &&
@@ -18,7 +17,9 @@ function Article(props) {
                     alt={article.author.username}
                   />
                   <div className="name-date">
-                    <h3>{article.author.username}</h3>
+                    <Link to={`/userdetail/${article.author.username}`}>
+                      <h3>{article.author.username}</h3>
+                    </Link>
                     <p>{new Date(article.updatedAt).toDateString()}</p>
                   </div>
                 </div>

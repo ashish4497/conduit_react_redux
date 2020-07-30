@@ -1,31 +1,35 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchComment, fetchArticle } from "../action";
+import { fetchComment } from "../action";
 class Comment extends React.Component {
   componentDidMount() {
     var url =
       "https://conduit.productionready.io/api/articles/title-kndazq/comments";
     this.props.dispatch(fetchComment(url));
   }
-  t;
+
   render() {
-    const comment = this.comment;
-    console.log(comment, "check the comment");
-    // if (comment.author) {
-    //   var { username, image } = comment;
-    // }
+    const comment = this.props.comment;
     return (
       <>
         <div class="content">
-          {/* <p>
-            <p class="image is-64x64">
-              <img src={`${image}`} alt="user_image" />
-            </p>
-            <strong>{comment.body || "no content"}</strong>
-            <p>{username || "no username"}</p>
-            <br />
-            <p>{bio || "no bio"}</p>
-          </p> */}
+          <p>
+            {comment &&
+              comment.map((val) => {
+                return (
+                  <>
+                    <p>{val.body}</p>
+                    <p class="image is-64x64">
+                      <img src={`${val.author.image}`} alt="user_image" />
+                    </p>
+
+                    <p>{val.author.username || "no username"}</p>
+                    <br />
+                    <p>{val.author.bio || "no bio"}</p>
+                  </>
+                );
+              })}
+          </p>
         </div>
       </>
     );
@@ -34,7 +38,7 @@ class Comment extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    comment: state.comment,
+    comment: state.getComment,
   };
 };
 

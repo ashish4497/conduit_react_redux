@@ -16,8 +16,6 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action) {
-  // console.log(state.postArticle, "check the state");
-
   switch (action.type) {
     case ADD_ARTICLES:
       return {

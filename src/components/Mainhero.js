@@ -1,11 +1,13 @@
 import React from "react";
 import Tag from "./Tag";
 import Article from "./Article";
+import Postroute from "./Postroute";
 
 function mainHero(props) {
   return (
-    <div>
-      <div className="container padding grid">
+    <div className="container">
+      <Postroute />
+      <div className="padding grid">
         <div className="left_sec">
           <Article />
         </div>

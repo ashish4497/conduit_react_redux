@@ -40,7 +40,6 @@ export function fetchTags(tagsUrl) {
 }
 
 export function getUserInfo(url, token) {
-  console.log(url, "log the action");
   return function (dispatch) {
     fetch(url, {
       method: "GET",
@@ -61,8 +60,6 @@ export function getUserInfo(url, token) {
 }
 
 export function postArticle(postUrl, state, history) {
-  // console.log(state, "check the state");
-  // console.log(postUrl, "hit url");
   return function (dispatch) {
     fetch(postUrl, {
       method: "POST",
@@ -85,7 +82,6 @@ export function postArticle(postUrl, state, history) {
 }
 
 export function postComment(commentUrl, state) {
-  // console.log(commentUrl, state, "ehsnlfn");
   return function (dispatch) {
     fetch(commentUrl, {
       method: "POST",

@@ -1,6 +1,20 @@
 import React from "react";
+import { connect } from "react-redux";
 
 class Setting extends React.Component {
+  componentDidMount() {
+    var url = "https://conduit.productionready.io/api/user";
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+  }
+  handleLogout = (e) => {
+    localStorage.clear();
+    this.props.history.push("/");
+  };
   render() {
     return (
       <>
@@ -51,7 +65,7 @@ class Setting extends React.Component {
             <button
               type="submit"
               className="button is-success margin"
-              onClick={this.handleSubmit}
+              onClick={(e) => this.handleLogout()}
             >
               click here to logout
             </button>
@@ -62,4 +76,4 @@ class Setting extends React.Component {
   }
 }
 
-export default Setting;
+export default connect()(Setting);

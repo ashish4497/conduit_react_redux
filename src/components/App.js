@@ -10,13 +10,11 @@ import Hero from "./Hero";
 import Footer from "./Footer";
 import Post from "./NewPost";
 import UserPost from "./UserPost";
-import SinglePost from "./SinglePost";
 import Setting from "./Setting";
+import Article from "./Article";
+import Userdetail from "./Userdetail";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     var articlesUrl =
       "https://conduit.productionready.io/api/articles?limit=10&offset=0";
@@ -25,54 +23,22 @@ class App extends React.Component {
     this.props.fetchTags(tagUrl);
     var url = "https://conduit.productionready.io/api/user";
     if (localStorage.authToken) {
-      console.log(localStorage.authToken + " TOKEN");
       this.props.getUserInfo(url, localStorage.authToken);
     }
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.user !== this.props.user) {
-  //     var url = "https://conduit.productionready.io/api/users";
-  //     if (localStorage.authToken) {
-  //       this.props.getUserInfo(url, localStorage.authToken);
-  //     }
-  //   }
-  // }
-  // publicRoute = () => {
-  //   return (
-  //     <>
-  //       <Switch>
-  //         <Route path="/Signup" component={Signup} />
-  //         <Route path="/Login" component={Login} />
-  //         <Route path="/" component={Hero} />
-  //         <Route path="/post" component={Post} />
-  //       </Switch>
-  //     </>
-  //   );
-  // };
-
-  // privateRoute = () => {
-  //   return (
-  // <>
-  //  <Route path="/post" component={Post} />;
-  //  <Route path="/userpost" component={UserPost} />
-  // </>
-  // )
-  // };
   render() {
-    const user = this.props.user;
-    console.log(user, "asdfg");
-
     return (
       <div className="App">
         <Header />
-
         {localStorage.authToken ? (
           <Switch>
             <Route exact path="/" component={Hero} />
-            <Route path="/userpost/:slug" component={SinglePost} />
             <Route path="/post" component={Post} />
+            <Route path="/userpost/:slug" component={UserPost} />
+            <Route path="/article" component={Article} />
             <Route path="/setting" component={Setting} />
+            <Route path="/userdetail/:slug" component={Userdetail} />
           </Switch>
         ) : (
           <Switch>
@@ -91,7 +57,6 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     state,
-    user: state.user,
   };
 };
 export default connect(mapStateToProps, {

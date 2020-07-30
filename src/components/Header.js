@@ -22,9 +22,6 @@ function Header(props) {
               <Link className="logo" to="/setting">
                 <p className="logo_name">settings</p>
               </Link>
-              {/* <Link className="logo" to="/Signup">
-                <p className="logo_name">logout</p>
-              </Link> */}
             </div>
           </>
         ) : (

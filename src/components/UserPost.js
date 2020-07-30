@@ -1,47 +1,55 @@
 import React from "react";
 import { connect } from "react-redux";
-import { postComment } from "../action";
 import Comment from "./Comment";
-
-import { POST_ARTICLE } from "../action/Type";
+import { fetchComment } from "../action";
 
 class userPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       body: "",
+      articles: {},
     };
-  }
-
-  componentDidMount() {
-    let { slug } = this.props.postArticle;
-    console.log(slug);
-    let url = `https://conduit.productionready.io/api/articles/${slug}`;
-    fetch(url, { method: "GET", headers: "application/json" })
-      .then((res) => res.json())
-      .then(({ article }) => {
-        this.props.dispatch({ type: POST_ARTICLE, payload: article });
-      });
   }
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
+  handleSubmit = () => {
+    var url =
+      "https://conduit.productionready.io/api/articles/s-nqtjl6/comments";
+    this.props.dispatch(fetchComment(url));
+  };
 
+  componentDidMount() {
+    var url =
+      "https://conduit.productionready.io/api/articles/feed?limit=10&offset=0";
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Token ${localStorage.authToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then(({ articles }) => this.setState({ articles: articles }));
+  }
   render() {
+    const { body } = this.state;
+    const { article } = this.props;
+    if (article.author) {
+      var {
+        title,
+        // body,
+        description,
+        author: { username, bio, image },
+      } = article;
+    } else {
+      return "No article post yet";
+    }
     return (
       <>
-        {/* <div className="container">
-          <div className="flex-2 margin">
-            <Link className="logo" to="/userpost">
-              <p className="feed">Your Feed</p>
-            </Link>
-            <Link className="logo" to="#">
-              <p className="logo_name">{title}</p>
-            </Link>
-          </div>
-        </div> */}
-        {/* <article>
+        <article>
           <div className="container">
             <figure class="media-left">
               <p class="image is-64x64">
@@ -81,7 +89,7 @@ class userPost extends React.Component {
               <Comment />
             </div>
           </div>
-        </article> */}
+        </article>
       </>
     );
   }
@@ -89,7 +97,7 @@ class userPost extends React.Component {
 
 const MapStateToProps = (state) => {
   return {
-    postArticle: state.postArticle,
+    article: state.postArticle,
     comment: state.comment,
   };
 };
